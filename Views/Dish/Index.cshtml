@@ -1,0 +1,80 @@
+@model IEnumerable<_netmvc.Models.Dish>
+
+@{
+    ViewData["Title"] = ViewData["ima"];
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@* <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PathImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PathImage)
+                </td>
+                <td>
+                    <img style="max-width: 100%;" src='/sta/@item.PathImage'>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+<div class="container">
+    @* <img src="@ViewData["ima"]" alt="" srcset=""> *@
+    <div class="row row-cols-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+
+                <div class="ratio ratio-1x1">
+                    <img class="object-fit-cover rounded" style="max-width: 100%;" src='/sta/@item.PathImage'>
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div>
+                    Giá: @Html.DisplayFor(m => item.Price)
+                </div>
+                <div class="flex">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

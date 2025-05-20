@@ -1,0 +1,27 @@
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    Upload file
+</p>
+<form enctype="multipart/form-data" asp-action="Uploadfile">
+    <dl>
+        <dt>
+            <label id="files"></label>
+        </dt>
+        <dd>
+            <input name="files" multiple id="files" type="file" />
+            <span id="files"></span>
+        </dd>
+    </dl>
+    <input class="btn" type="submit" value="Upload" />
+
+    <div>
+        hello
+    </div>
+</form>

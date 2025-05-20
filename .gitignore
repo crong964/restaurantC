@@ -1,0 +1,5 @@
+MvcMovieContext.db
+/bin
+/StaticFiles/*
+.vs
+obj

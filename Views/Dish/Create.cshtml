@@ -1,0 +1,50 @@
+@model _netmvc.Models.DishView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Dish</h4>
+<hr />
+
+
+<form asp-action="Create" asp-controller="Dish" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="DishCreate!.Name" class="control-label"></label>
+        <input asp-for="DishCreate!.Name" class="form-control" />
+        <span asp-validation-for="DishCreate!.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DishCreate!.PathImage" class="control-label"></label>
+        <input asp-for="DishCreate!.PathImage" class="form-control" />
+        <span asp-validation-for="DishCreate!.PathImage" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DishCreate!.Price" class="control-label"></label>
+        <input asp-for="DishCreate!.Price" class="form-control" />
+        <span asp-validation-for="DishCreate!.Price" class="text-danger"></span>
+    </div>
+    <select class="mt-4" asp-for="DishCreate!.Type"
+        asp-items="@(new SelectList(Model.DishTypes,nameof(DishType.Id),nameof(DishType.Name)))">
+    </select>
+    <br>
+    <span asp-validation-for="DishCreate!.Type" class="text-danger"></span>
+    <div class="form-group mt-4">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
