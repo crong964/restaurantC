@@ -1,4 +1,4 @@
-@model _netmvc.Models.DishCreate
+@model _netmvc.Models.DishEditView
 
 @{
     ViewData["Title"] = "Create";
@@ -10,31 +10,36 @@
 <hr />
 
 
-<form asp-action="Edit">
+<form asp-action="Edit" asp-controller="Dish" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="DishEdit!.Id">
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="DishEdit!.Name" class="control-label"></label>
+        <input asp-for="DishEdit!.Name" class="form-control" />
+        <span asp-validation-for="DishEdit!.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="PathImage" class="control-label"></label>
-        <input asp-for="PathImage" class="form-control" />
-        <span asp-validation-for="PathImage" class="text-danger"></span>
+        <label asp-for="DishEdit!.PathImage" class="control-label"></label>
+        <input asp-for="DishEdit!.PathImage" class="form-control" />
+        <span asp-validation-for="DishEdit!.PathImage" class="text-danger"></span>
+    </div>
+    <div>
+        <div> Ảnh cũ</div>
+        <img class="object-fit-cover rounded" style="height: 200px; width: 200px;" src="/sta/@ViewData["oldimg"]" alt="" srcset="">
     </div>
     <div class="form-group">
-        <label asp-for="Type" class="control-label"></label>
-        <input asp-for="Type" class="form-control" />
-        <span asp-validation-for="Type" class="text-danger"></span>
+        <label asp-for="DishEdit!.Price" class="control-label"></label>
+        <input asp-for="DishEdit!.Price" class="form-control" />
+        <span asp-validation-for="DishEdit!.Price" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Edit" class="btn btn-primary" />
+    <select class="mt-4" asp-for="DishEdit!.Type"
+        asp-items="@(new SelectList(Model.DishTypes,nameof(DishType.Id),nameof(DishType.Name)))">
+
+    </select>
+    <br>
+    <span asp-validation-for="DishEdit!.Type" class="text-danger"></span>
+    <div class="form-group mt-4">
+        <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
     </div>
 </form>
 

@@ -41,22 +41,45 @@ public class DishTypeController : Controller
 
         return View();
     }
+    
+    [HttpGet]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
         {
             return RedirectToAction("Index");
         }
-        var dishTypeCreate = await _context.DishType.FindAsync(id);
-        if (dishTypeCreate == null)
+        var dishType = await _context.DishType.FindAsync(id);
+        if (dishType == null)
         {
             return RedirectToAction("Index");
         }
         return View(new DishTypeCreate
         {
-            Name = dishTypeCreate.Name,
-            Id = dishTypeCreate.Id,
-            Number = dishTypeCreate.Number
+            Name = dishType.Name,
+            Id = dishType.Id,
+            Number = dishType.Number
         });
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(DishTypeCreate? dishTypeCreate)
+    {
+        if (dishTypeCreate == null)
+        {
+            return RedirectToAction("Index");
+        }
+        var dishType = await _context.DishType.FindAsync(dishTypeCreate.Id);
+
+        if (dishType == null)
+        {
+            return RedirectToAction("Index");
+        }
+
+        dishType.Name = dishTypeCreate.Name;
+        dishType.Number = dishTypeCreate.Number;
+        _context.DishType.Update(dishType);
+        await _context.SaveChangesAsync();
+        return RedirectToAction("Index");
     }
 }

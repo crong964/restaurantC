@@ -1,16 +1,16 @@
 @model _netmvc.Models.DishTypeCreate
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Dish</h4>
 <hr />
 
 
-<form asp-action="Edit">
+<form asp-action="Edit" asp-controller="DishType">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
