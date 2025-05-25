@@ -9,4 +9,6 @@ public class DishType
     public required string Name { get; set; }
     public int Number { get; set; }
 
+    public ICollection<Dish>? dishes { get; set; }
+
 }

@@ -19,10 +19,16 @@ public class DishController : Controller
     {
         _context = context;
     }
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? idtype)
     {
         ViewData["ima"] = "https://localhost:7019/sta/638833544375746922.jpg";
-        return View(await _context.Dish.ToListAsync());
+        ViewData["lstype"] = await _context.DishType.ToArrayAsync();
+        ViewData["idtype"] = idtype;
+        if (idtype == null)
+        {
+            return View(await _context.Dish.ToListAsync());
+        }
+        return View(await _context.Dish.Where(i => i.Type.Equals(idtype+"")).ToArrayAsync());
     }
 
     public async Task<IActionResult> Create()
@@ -152,7 +158,7 @@ public class DishController : Controller
 
     public IActionResult Details(int? id)
     {
-        
+
         return View();
     }
 }

@@ -1,0 +1,64 @@
+@model IEnumerable<_netmvc.Models.Table>
+
+@{
+    ViewData["Title"] = "Bàn ăn";
+}
+
+<h1>Index</h1>
+
+
+
+<div class="container ">
+
+    <div class="row-cols-6 row">
+        @foreach (var i in Model)
+        {
+            <div class="col fs-4 text-light p-3">
+                @if (i.status.Equals("empty"))
+                {
+                    <div class="ratio ratio-1x1  position-relative bg-secondary d-flex justify-content-center align-items-center">
+                        
+                            @Html.DisplayFor(m => i.number)
+                       
+                        <form  class=" " asp-action="Delete"
+                            asp-controller="Table" method="post">
+                            <input type="hidden" name="Id" value="@i.Id">
+                            <button title="Xóa bàn" class="btn position-absolute top-0 end-0" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="ratio ratio-1x1 bg-success d-flex justify-content-center align-items-center">
+                        @Html.DisplayFor(m => i.number)
+
+                    </div>
+                }
+            </div>
+
+        }
+        <div class="col  border border-2 p-2">
+            <div class="ratio ratio-1x1">
+                <form asp-action="Create" asp-controller="Table" method="post">
+                    <div>Thêm bàn</div>
+                    <div class="form-group">
+                        <label form="number" class="control-label">
+                            Số bàn
+                        </label>
+                        <input value="@ViewData["numbertable"]" required id="number" name="number" class="form-control" />
+                    </div>
+                    <button class="btn btn-primary mt-4" type="submit">
+                        Thêm
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
