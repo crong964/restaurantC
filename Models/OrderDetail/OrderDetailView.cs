@@ -4,9 +4,7 @@ namespace _netmvc.Models;
 
 public class OrderDetailView
 {
-    public int Id { get; set; }
-    public int DishId { get; set; }
-    public int TableId { get; set; }
-    public int Quality { get; set; }
-    public required string pathImage { get; set; }
+    public required Table Table { set; get; }
+    public List<OrderDetail>? OrderDetails { set; get; }
+    public required List<Dish> Dishes { set; get; }
 }

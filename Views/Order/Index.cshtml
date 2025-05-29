@@ -1,0 +1,33 @@
+@model IEnumerable<_netmvc.Models.Table>
+<h1 class="text-center">
+    Chọn bàn
+</h1>
+
+<div class="container ">
+
+    <div class="row-cols-6 row">
+        @foreach (var i in Model)
+        {
+            <a asp-controller="Order" asp-action="Order" asp-route-idtable="@i.Id" class="col fs-4 text-light p-3">
+                @if (i.status.Equals("empty"))
+                {
+                    <div class="ratio ratio-1x1  position-relative bg-secondary d-flex justify-content-center align-items-center">
+                        
+                            @Html.DisplayFor(m => i.number)
+                       
+                    </div>
+
+                }
+                else
+                {
+                    <div class="ratio ratio-1x1 bg-success d-flex justify-content-center align-items-center">
+                        @Html.DisplayFor(m => i.number)
+
+                    </div>
+                }
+            </a>
+
+        }
+        
+    </div>
+</div>

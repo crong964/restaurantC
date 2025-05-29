@@ -14,7 +14,7 @@ namespace _netmvc.Data
         {
         }
 
-        public DbSet<_netmvc.Models.Movie> Movie { get; set; } = default!;
+       
         public DbSet<_netmvc.Models.DishType> DishType { get; set; } = default!;
         public DbSet<_netmvc.Models.Table> Table { get; set; } = default!;
         public DbSet<_netmvc.Models.Dish> Dish { get; set; } = default!;
