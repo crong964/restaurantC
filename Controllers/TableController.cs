@@ -49,4 +49,24 @@ public class TableController : Controller
         }
         return RedirectToAction("Index");
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Status(int? idtable)
+    {
+        if (idtable == null)
+        {
+            return RedirectToAction("Index", "Order");
+        }
+        var table = await _content.Table.Where(i => i.Id == idtable).FirstAsync();
+        if (table == null)
+        {
+            return RedirectToAction("Index", "Order");
+        }
+
+        table.status = "empty";
+
+        _content.Table.Update(table);
+        await _content.SaveChangesAsync();
+        return RedirectToAction("Index", "Order");
+    }
 }

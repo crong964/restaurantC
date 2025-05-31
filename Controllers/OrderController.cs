@@ -39,6 +39,10 @@ public class OrderController : Controller
             OrderDetails = orderdetail,
             Table = Table
         };
+        ViewData["money"] = orderdetail.Where(i => i.TableId == idtable).Sum(i => i.Dish.Price * i.Quality); ;
+
+
+
         return View(OrderDetailView);
     }
 
@@ -56,7 +60,7 @@ public class OrderController : Controller
 
         table.status = "order";
         _context.Table.Update(table);
-            await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         if (orderdetailsingle == null)
         {
             var orderdetail = new Models.OrderDetail
@@ -76,5 +80,45 @@ public class OrderController : Controller
         }
 
         return RedirectToAction("Order", new { idtable = idtable });
+    }
+    public async Task<IActionResult> DeleteDish(int? idtable, int? iddish)
+    {
+        if (idtable == null || iddish == null)
+        {
+            return RedirectToAction("Index");
+        }
+        var orderdetailsingle = _context.OrderDetail.Where(i => i.TableId == idtable && i.Dish.Id == iddish).FirstOrDefault();
+        var dish = _context.Dish.Single(i => i.Id == iddish);
+
+        var table = _context.Table.Single(i => i.Id == idtable);
+
+        table.status = "order";
+        _context.Table.Update(table);
+        await _context.SaveChangesAsync();
+        if (orderdetailsingle == null)
+        {
+
+        }
+        else
+        {
+            orderdetailsingle.Quality -= 1;
+            if (orderdetailsingle.Quality == 0)
+            {
+                _context.OrderDetail.Remove(orderdetailsingle);
+            }
+            else
+            {
+                _context.OrderDetail.Update(orderdetailsingle);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Order", new { idtable = idtable });
+    }
+
+    public void Serve()
+    {
+
     }
 }

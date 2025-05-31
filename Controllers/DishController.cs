@@ -28,7 +28,7 @@ public class DishController : Controller
         {
             return View(await _context.Dish.ToListAsync());
         }
-        return View(await _context.Dish.Where(i => i.Type.Equals(idtype+"")).ToArrayAsync());
+        return View(await _context.Dish.Where(i => i.Type.Equals(idtype + "")).ToArrayAsync());
     }
 
     public async Task<IActionResult> Create()
@@ -155,10 +155,26 @@ public class DishController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
-
-    public IActionResult Details(int? id)
+    public async Task<IActionResult> DetailsAsync(int? id)
     {
+        if (id == null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
 
-        return View();
+        var dish = await _context.Dish.FindAsync(id);
+        if (dish == null)
+        {
+            return RedirectToAction("Index");
+        }
+        int ids = Int32.Parse(dish.Type);
+        var DishType = await _context.DishType.Where(i => i.Id == ids).FirstAsync();
+
+        ViewData["TypeName"] = DishType!.Name;
+        return View(dish);
     }
+
+
+   
 }
+

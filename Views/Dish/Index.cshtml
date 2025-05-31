@@ -21,7 +21,7 @@
         }
         else
         {
-            <a class="link-underline-light" asp-action="Index" >
+            <a class="link-underline-light" asp-action="Index">
                 <button type="button" class="btn btn-light">
                     Tất cả
                 </button>
@@ -46,11 +46,10 @@
             }
         }
     </div>
-    <div class="row row-cols-4"></div>
+    <div class="row ">
         @foreach (var item in Model)
         {
-            <div class="col">
-
+            <div class="col-3">
                 <div class="ratio ratio-1x1">
                     <img class="object-fit-cover rounded" style="max-width: 100%;" src='/sta/@item.PathImage'>
                 </div>
@@ -60,10 +59,17 @@
                 <div>
                     Giá: @Html.DisplayFor(m => item.Price)
                 </div>
-                <div class="flex">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <div class="row">
+                    <form asp-action="Details" class="col-4" method="get">
+                        <input type="hidden" value="@item.Id" name="id">
+                        <button class="btn btn-primary" type="submit"> Details </button>
+                    </form>
+                    <form asp-action="Edit" class="col-4" method="get">
+                        <input type="hidden" value="@item.Id" name="id">
+                        <button class="btn btn-primary" type="submit"> Edit </button>
+                    </form>
+
+
                 </div>
             </div>
         }
