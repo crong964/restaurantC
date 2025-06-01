@@ -4,50 +4,64 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="text-3xl my-3">
+    Chỉnh Sửa Món Ăn
+</div>
 
-<h4>Dish</h4>
-<hr />
 
 
 <form asp-action="Edit" asp-controller="Dish" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="DishEdit!.Id">
-    <div class="form-group">
-        <label asp-for="DishEdit!.Name" class="control-label"></label>
-        <input asp-for="DishEdit!.Name" class="form-control" />
-        <span asp-validation-for="DishEdit!.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DishEdit!.PathImage" class="control-label"></label>
-        <input asp-for="DishEdit!.PathImage" class="form-control" />
-        <span asp-validation-for="DishEdit!.PathImage" class="text-danger"></span>
-    </div>
-    <div>
-        <div> Ảnh cũ</div>
-        <img class="object-fit-cover rounded" style="height: 200px; width: 200px;" src="/sta/@ViewData["oldimg"]" alt="" srcset="">
-    </div>
-    <div class="form-group">
-        <label asp-for="DishEdit!.Price" class="control-label"></label>
-        <input asp-for="DishEdit!.Price" class="form-control" />
-        <span asp-validation-for="DishEdit!.Price" class="text-danger"></span>
-    </div>
-    <select class="mt-4" asp-for="DishEdit!.Type"
-        asp-items="@(new SelectList(Model.DishTypes,nameof(DishType.Id),nameof(DishType.Name)))">
+    <div class="flex mt-4 space-x-3">
+        <div class="w-3/5 flex space-y-5 flex-col">
+            <div class="text-4xl font-bold my-4">thông tin</div>
+            <div class="p-2 border-2 flex space-x-4 rounded-sm">
+                <label asp-for="DishEdit!.Name" class="control-label"></label>
+                <input asp-for="DishEdit!.Name" class="focus:outline-none w-full" />
+                <span asp-validation-for="DishEdit!.Name" class="text-danger"></span>
+            </div>
 
-    </select>
+
+            <div class="p-2 border-2 flex space-x-4 rounded-sm">
+                <label asp-for="DishEdit!.Price" class="control-label"></label>
+                <input asp-for="DishEdit!.Price" class="focus:outline-none" />
+                <span asp-validation-for="DishEdit!.Price" class=""></span>
+            </div>
+            <select class="mt-4" asp-for="DishEdit!.Type"
+                asp-items="@(new SelectList(Model.DishTypes,nameof(DishType.Id),nameof(DishType.Name)))">
+
+            </select>
+        </div>
+        <div class="flex-1">
+            <div> Ảnh cũ</div>
+            <img class="object-cover" style="height: 200px; width: 200px;" src="/sta/@ViewData["oldimg"]" alt=""
+                srcset="">
+            <div class="form-group">
+                <label asp-for="DishEdit!.PathImage" class="control-label"></label>
+                <input asp-for="DishEdit!.PathImage" class="form-control" />
+                <span asp-validation-for="DishEdit!.PathImage" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
     <br>
     <span asp-validation-for="DishEdit!.Type" class="text-danger"></span>
-    <div class="form-group mt-4">
-        <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
+    <div class="flex  mt-4 items-center space-x-4">
+        <div class="form-group">
+            <input type="submit" value="Chỉnh Sửa"
+                class="rounded-sm px-3 py-2 hover:bg-blue-700 cursor-pointer bg-blue-600 text-white" />
+        </div>
+        <div class=" ">
+            <a class="rounded-sm px-3 py-2 hover:bg-red-700 cursor-pointer bg-red-600 text-white" asp-action="Index">
+                Back to
+                List
+            </a>
+        </div>
     </div>
+
 </form>
 
 
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{

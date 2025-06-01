@@ -3,3 +3,5 @@ MvcMovieContext.db
 /StaticFiles/*
 .vs
 obj
+node_modules
+package.*

@@ -12,17 +12,17 @@
 
 <div class="container">
 
-    <div class="py-4">
+    <div class="py-4 flex space-x-3">
         @if (ViewData["idtype"] == null)
         {
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="text-white bg-blue-600 px-3 py-2 rounded-sm">
                 Tất cả
             </button>
         }
         else
         {
-            <a class="link-underline-light" asp-action="Index">
-                <button type="button" class="btn btn-light">
+            <a class="link-underline-light px-3 py-2 hover:bg-blue-600 hover:text-white" asp-action="Index">
+                <button type="button" class="">
                     Tất cả
                 </button>
             </a>
@@ -32,13 +32,13 @@
             if (ViewData["idtype"] != null && i.Id == (int)ViewData["idtype"]!)
             {
 
-                <button type="button" class="btn btn-primary">
+                <button type="button" class=" text-white bg-blue-600 px-3 py-2 rounded-sm">
                     @Html.DisplayFor(modelItem => i.Name)
                 </button>
             }
             else
             {
-                <a class="link-underline-light" asp-action="Index" asp-route-idtype="@i.Id">
+                <a class="px-3 py-2  hover:bg-blue-600 hover:text-white" asp-action="Index" asp-route-idtype="@i.Id">
                     <button type="button" class="btn btn-light">
                         @Html.DisplayFor(modelItem => i.Name)
                     </button>
@@ -46,12 +46,12 @@
             }
         }
     </div>
-    <div class="row ">
+    <div class="flex flex-wrap ">
         @foreach (var item in Model)
         {
-            <div class="col-xs-2 col-md-3">
-                <div class="ratio ratio-1x1">
-                    <img class="object-fit-cover rounded" style="max-width: 100%;" src='/sta/@item.PathImage'>
+            <div class="w-1/4 p-3">
+                <div class="">
+                    <img class="object-cover aspect-square rounded-2xl" style="max-width: 100%;" src='/sta/@item.PathImage'>
                 </div>
                 <div>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -59,14 +59,14 @@
                 <div>
                     Giá: @Html.DisplayFor(m => item.Price)
                 </div>
-                <div class="row">
+                <div class="flex  text-white space-x-3">
                     <form asp-action="Details" class="col-4" method="get">
                         <input type="hidden" value="@item.Id" name="id">
-                        <button class="btn btn-primary" type="submit"> Details </button>
+                        <button class="cursor-pointer bg-blue-600 px-3 py-2 rounded-sm " type="submit"> Details </button>
                     </form>
                     <form asp-action="Edit" class="col-4" method="get">
                         <input type="hidden" value="@item.Id" name="id">
-                        <button class="btn btn-primary" type="submit"> Edit </button>
+                        <button class="cursor-pointer bg-blue-600 px-3 py-2 rounded-sm" type="submit"> Edit </button>
                     </form>
 
 
