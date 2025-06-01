@@ -1,4 +1,34 @@
-@model _netmvc.Models.OrderDetail
+@model IEnumerable<_netmvc.Models.OrderDetail>
 
 
-
+<div class="container">
+    <a asp-controller="Order" asp-action="Index">Các Bàn</a>
+    <h1>
+        Các món chưa lên
+    </h1>
+    <div class="row mt-4">
+        @foreach (var i in Model)
+        {
+            @if (i.Quality > i.Served)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-4  row mt-3">
+                    <div class="ratio ratio-1x1 col-5" style="max-width: 40%">
+                        <img class="object-fit-cover rounded" src='/sta/@i.Dish.PathImage'>
+                    </div>
+                    <div class="col-7 ">
+                        <div>Tên: @Html.DisplayFor(m => i.Dish.Name) </div>
+                        <div>Số lương đặt: @Html.DisplayFor(m => i.Quality) </div>
+                        <div>Bàn số: @Html.DisplayFor(m => i.Table.number) </div>
+                        <div>Số lương đã Phục vụ: @Html.DisplayFor(m => i.Served) </div>
+                        <div class="row">
+                            <div class="col-4">
+                                
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

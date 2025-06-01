@@ -30,7 +30,7 @@ public class OrderController : Controller
         {
             return RedirectToAction("Index");
         }
-        var orderdetail = await _context.OrderDetail.Where((i => i.TableId == idtable)).ToListAsync();
+        var orderdetail = await _context.OrderDetail.Where(i => i.Table.Id == idtable).ToListAsync();
         var dishes = _context.Dish.ToList();
 
         var OrderDetailView = new OrderDetailView
@@ -39,7 +39,7 @@ public class OrderController : Controller
             OrderDetails = orderdetail,
             Table = Table
         };
-        ViewData["money"] = orderdetail.Where(i => i.TableId == idtable).Sum(i => i.Dish.Price * i.Quality); ;
+        ViewData["money"] = orderdetail.Where(i => i.Table.Id == idtable).Sum(i => i.Dish.Price * i.Quality); ;
 
 
 
@@ -53,7 +53,7 @@ public class OrderController : Controller
         {
             return RedirectToAction("Index");
         }
-        var orderdetailsingle = _context.OrderDetail.Where(i => i.TableId == idtable && i.Dish.Id == iddish).FirstOrDefault();
+        var orderdetailsingle = _context.OrderDetail.Where(i => i.Table.Id == idtable && i.Dish.Id == iddish).FirstOrDefault();
         var dish = _context.Dish.Single(i => i.Id == iddish);
 
         var table = _context.Table.Single(i => i.Id == idtable);
@@ -66,8 +66,8 @@ public class OrderController : Controller
             var orderdetail = new Models.OrderDetail
             {
                 Quality = 1,
-                TableId = (int)idtable,
                 Dish = dish,
+                Table = table
             };
             _context.OrderDetail.Add(orderdetail);
             await _context.SaveChangesAsync();
@@ -87,7 +87,7 @@ public class OrderController : Controller
         {
             return RedirectToAction("Index");
         }
-        var orderdetailsingle = _context.OrderDetail.Where(i => i.TableId == idtable && i.Dish.Id == iddish).FirstOrDefault();
+        var orderdetailsingle = _context.OrderDetail.Where(i => i.Table.Id == idtable && i.Dish.Id == iddish).FirstOrDefault();
         var dish = _context.Dish.Single(i => i.Id == iddish);
 
         var table = _context.Table.Single(i => i.Id == idtable);
@@ -117,8 +117,27 @@ public class OrderController : Controller
         return RedirectToAction("Order", new { idtable = idtable });
     }
 
-    public void Serve()
+    public async Task<IActionResult> Serve()
     {
 
+        return View(await _context.OrderDetail.Include(i => i.Dish).Include(i => i.Table).ToListAsync());
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> Served(int id)
+    {
+        var orderdetail = await _context.OrderDetail.FindAsync(id);
+        if (orderdetail == null)
+        {
+            return RedirectToAction("Serve");
+        }
+        orderdetail.Quality -= 1;
+
+        _context.OrderDetail.Update(orderdetail);
+        await _context.SaveChangesAsync();
+
+
+        return RedirectToAction("Serve");
     }
 }
