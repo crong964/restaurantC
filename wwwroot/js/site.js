@@ -2,7 +2,7 @@
     document.querySelectorAll(".nav-link")
         .forEach((v) => {
             if (v.href == location.href) {
-                v.classList.add("bg-blue-600")
+                v.classList.add("bg-blue-600","text-white")
                
             }
         })

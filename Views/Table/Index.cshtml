@@ -10,20 +10,20 @@
 
 <div class="container ">
 
-    <div class="row-cols-6 row">
+    <div class="grid grid-cols-6">
         @foreach (var i in Model)
         {
-            <div class="col fs-4 text-light p-3">
+            <div class="col-span-1 text-4xl text-light p-3">
                 @if (i.status.Equals("empty"))
                 {
-                    <div class="ratio ratio-1x1  position-relative bg-secondary d-flex justify-content-center align-items-center">
+                    <div class="aspect-square rounded-2xl relative bg-green-400 flex justify-center items-center">
                         
                             @Html.DisplayFor(m => i.number)
                        
                         <form  class=" " asp-action="Delete"
                             asp-controller="Table" method="post">
                             <input type="hidden" name="Id" value="@i.Id">
-                            <button title="Xóa bàn" class="btn position-absolute top-0 end-0" type="submit">
+                            <button title="Xóa bàn" class="absolute top-0 cursor-pointer right-0" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                     <path
@@ -36,7 +36,7 @@
                 }
                 else
                 {
-                    <div class="ratio ratio-1x1 bg-success d-flex justify-content-center align-items-center">
+                    <div class="aspect-square bg-green-500 flex justify-center items-center">
                         @Html.DisplayFor(m => i.number)
 
                     </div>
@@ -44,17 +44,18 @@
             </div>
 
         }
-        <div class="col  border border-2 p-2">
-            <div class="ratio ratio-1x1">
-                <form asp-action="Create" asp-controller="Table" method="post">
-                    <div>Thêm bàn</div>
-                    <div class="form-group">
-                        <label form="number" class="control-label">
+        <div class="col  border border-2 p-2 rounded-2xl">
+            <div class="aspect-square">
+                <form asp-action="Create" asp-controller="Table"  class="flex flex-col gap-10" method="post">
+                    <div class="text-2xl">Thêm bàn</div>
+                    <div class="form-group flex space-x-3">
+                        <label form="number" class="control-label ">
                             Số bàn
                         </label>
-                        <input value="@ViewData["numbertable"]" required id="number" name="number" class="form-control" />
+                        <input value="@ViewData["numbertable"]" required id="number" name="number" 
+                        class="focus:outline-none flex-1 w-2/3 border-b-2 " />
                     </div>
-                    <button class="btn btn-primary mt-4" type="submit">
+                    <button class="bg-blue-400 w-min text-white px-4 rounded-sm py-2 ml-3 hover:bg-blue-700 cursor-pointer mt-4" type="submit">
                         Thêm
                     </button>
                 </form>

@@ -6,31 +6,35 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
+<p class="m-10">
+    <a class="px-4 rounded-sm bg-blue-400 text-white py-2 ml-3 hover:bg-blue-700 hover:text-white" asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+<div class="container">
+    <table class="table-auto w-full">
+        <thead>
+            <tr class="my-4">
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    Thao tác
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="">
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="p-5 flex justify-center">
+                        <a class="px-4 bg-blue-400 text-white rounded-sm py-2 ml-3 hover:bg-blue-700 " asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                        <a class="px-4 bg-blue-400 text-white rounded-sm py-2 ml-3 hover:bg-blue-700 " asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        <a class="px-4 bg-blue-400 text-white rounded-sm py-2 ml-3 hover:bg-blue-700 " asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
